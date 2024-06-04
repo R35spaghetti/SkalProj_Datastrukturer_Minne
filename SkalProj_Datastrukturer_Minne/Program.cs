@@ -12,12 +12,13 @@ namespace SkalProj_Datastrukturer_Minne
         {
             while (true)
             {
-                Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4, 0) of your choice"
-                                  + "\n1. Examine a List"
-                                  + "\n2. Examine a Queue"
-                                  + "\n3. Examine a Stack"
-                                  + "\n4. CheckParenthesis"
-                                  + "\n0. Exit the application");
+                Console.WriteLine(
+                    "Please navigate through the menu by inputting the number \n(1, 2, 3 ,4, 0) of your choice"
+                    + "\n1. Examine a List"
+                    + "\n2. Examine a Queue"
+                    + "\n3. Examine a Stack"
+                    + "\n4. CheckParenthesis"
+                    + "\n0. Exit the application");
                 char input = ' '; //Creates the character input to be used with the switch-case below.
                 try
                 {
@@ -28,6 +29,7 @@ namespace SkalProj_Datastrukturer_Minne
                     Console.Clear();
                     Console.WriteLine("Please enter some input!");
                 }
+
                 switch (input)
                 {
                     case '1':
@@ -99,7 +101,7 @@ namespace SkalProj_Datastrukturer_Minne
              * In both cases, look at the count and capacity of the list
              * As a default case, tell them to use only + or -
              * Below you can see some inspirational code to begin working.
-            */
+             */
 
             //List<string> theList = new List<string>();
             //string input = Console.ReadLine();
@@ -114,11 +116,62 @@ namespace SkalProj_Datastrukturer_Minne
         /// </summary>
         static void ExamineQueue()
         {
+            Queue<string> examinedQueue = new Queue<string>();
+            string input;
+
+            do
+            {
+                Console.WriteLine("Make your choice by entering the corresponding number:" +
+                                  "\n 1. Add item to the queue" +
+                                  "\n 2. Remove item from the queue" +
+                                  "\n 3. Return to menu");
+                input = Console.ReadLine()?.TrimEnd() ?? string.Empty;
+                string value;
+                switch (input)
+                {
+                    case "1":
+                        Console.Write("Enter something to add: ");
+                        value = Console.ReadLine() ?? string.Empty;
+                        examinedQueue.Enqueue(value);
+                        Console.WriteLine($"Added {value}");
+                        DisplayQueue();
+                        break;
+                    case "2":
+                        if (examinedQueue.Count > 0)
+                        {
+                            value = examinedQueue.Dequeue();
+                            Console.WriteLine($"Removed {value}");
+                            DisplayQueue();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Queue is empty!\n");
+                        }
+
+                        break;
+                    default:
+                        Console.WriteLine("Invalid input, try again");
+                        break;
+                }
+            } while (input != "3");
+
+            Console.WriteLine("Returning to menu...");
+
+            void DisplayQueue()
+            {
+                Console.WriteLine("Queue contains the following:");
+                foreach (var item in examinedQueue)
+                {
+                    Console.WriteLine($"{item}");
+                }
+
+                Console.WriteLine("");
+            }
             /*
              * Loop this method untill the user inputs something to exit to main menue.
              * Create a switch with cases to enqueue items or dequeue items
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
-           */
+             */
         }
 
         /// <summary>
@@ -130,7 +183,7 @@ namespace SkalProj_Datastrukturer_Minne
              * Loop this method until the user inputs something to exit to main menue.
              * Create a switch with cases to push or pop items
              * Make sure to look at the stack after pushing and and poping to see how it behaves
-           */
+             */
         }
 
         static void CheckParanthesis()
