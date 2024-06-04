@@ -10,15 +10,14 @@ namespace SkalProj_Datastrukturer_Minne
         /// <param name="args"></param>
         static void Main()
         {
-
             while (true)
             {
                 Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4, 0) of your choice"
-                    + "\n1. Examine a List"
-                    + "\n2. Examine a Queue"
-                    + "\n3. Examine a Stack"
-                    + "\n4. CheckParenthesis"
-                    + "\n0. Exit the application");
+                                  + "\n1. Examine a List"
+                                  + "\n2. Examine a Queue"
+                                  + "\n3. Examine a Stack"
+                                  + "\n4. CheckParenthesis"
+                                  + "\n0. Exit the application");
                 char input = ' '; //Creates the character input to be used with the switch-case below.
                 try
                 {
@@ -44,7 +43,7 @@ namespace SkalProj_Datastrukturer_Minne
                         CheckParanthesis();
                         break;
                     /*
-                     * Extend the menu to include the recursive 
+                     * Extend the menu to include the recursive
                      * and iterative exercises.
                      */
                     case '0':
@@ -62,6 +61,36 @@ namespace SkalProj_Datastrukturer_Minne
         /// </summary>
         static void ExamineList()
         {
+            List<string> arbitraryList = new List<string>();
+            string input;
+            do
+            {
+                Console.WriteLine("Enter +yourTerm to add a value to the list" +
+                                  "enter -yourTerm to remove it, type x to exit.");
+                input = Console.ReadLine().TrimEnd();
+                if (string.IsNullOrEmpty(input) || !char.TryParse(input[0].ToString(), out var operation)) continue;
+                string value = input[1..];
+
+                switch (operation)
+                {
+                    case '+':
+                        arbitraryList.Add(value);
+                        Console.WriteLine($"Added '{value}' to the list.");
+                        break;
+                    case '-':
+                        Console.WriteLine(arbitraryList.Remove(value)
+                            ? $"Removed '{value}' from the list."
+                            : $"'{value}' was not found in the list.");
+                        break;
+                    default:
+                        Console.WriteLine("Please use only + or -.");
+                        break;
+                }
+
+                Console.WriteLine($"List size: {arbitraryList.Count}, Capacity: {arbitraryList.Capacity}");
+            } while (input.ToLower() != "x");
+
+            Console.WriteLine("Going back to the main menu...");
             /*
              * Loop this method untill the user inputs something to exit to main menue.
              * Create a switch statement with cases '+' and '-'
@@ -89,7 +118,7 @@ namespace SkalProj_Datastrukturer_Minne
              * Loop this method untill the user inputs something to exit to main menue.
              * Create a switch with cases to enqueue items or dequeue items
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
-            */
+           */
         }
 
         /// <summary>
@@ -101,7 +130,7 @@ namespace SkalProj_Datastrukturer_Minne
              * Loop this method until the user inputs something to exit to main menue.
              * Create a switch with cases to push or pop items
              * Make sure to look at the stack after pushing and and poping to see how it behaves
-            */
+           */
         }
 
         static void CheckParanthesis()
@@ -111,9 +140,6 @@ namespace SkalProj_Datastrukturer_Minne
              * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
-
         }
-
     }
 }
-
