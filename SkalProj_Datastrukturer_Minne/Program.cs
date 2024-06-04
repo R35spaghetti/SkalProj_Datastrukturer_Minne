@@ -168,6 +168,42 @@ namespace SkalProj_Datastrukturer_Minne
         /// </summary>
         static void ExamineStack()
         {
+            Stack<string> examinedStack = new Stack<string>();
+            string input;
+
+            do
+            {
+                Console.WriteLine("Make your choice by entering the corresponding number:" +
+                                  "\n 1. Add item to the stack" +
+                                  "\n 2. Remove item from the stack" +
+                                  "\n 3. Return to menu");
+                input = Console.ReadLine()?.TrimEnd() ?? string.Empty;
+                string value;
+                switch (input)
+                {
+                    case "1":
+                        Console.Write("Enter something to add: ");
+                        value = Console.ReadLine() ?? string.Empty;
+                        examinedStack.Push(value);
+                        Console.WriteLine($"Added {value}");
+                        DisplayValues(examinedStack);
+                        break;
+                    case "2":
+                        if (examinedStack.Count > 0)
+                        {
+                            value = examinedStack.Pop();
+                            Console.WriteLine($"Removed {value}");
+                            DisplayValues(examinedStack);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Stack is empty!");
+                        }
+
+                        break;
+              
+                }
+            } while (input != "3");
             /*
              * Loop this method until the user inputs something to exit to main menue.
              * Create a switch with cases to push or pop items
