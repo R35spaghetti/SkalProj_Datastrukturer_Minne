@@ -134,14 +134,14 @@ namespace SkalProj_Datastrukturer_Minne
                         value = Console.ReadLine() ?? string.Empty;
                         examinedQueue.Enqueue(value);
                         Console.WriteLine($"Added {value}");
-                        DisplayQueue();
+                        DisplayValues(examinedQueue);
                         break;
                     case "2":
                         if (examinedQueue.Count > 0)
                         {
                             value = examinedQueue.Dequeue();
                             Console.WriteLine($"Removed {value}");
-                            DisplayQueue();
+                            DisplayValues(examinedQueue);
                         }
                         else
                         {
@@ -156,17 +156,6 @@ namespace SkalProj_Datastrukturer_Minne
             } while (input != "3");
 
             Console.WriteLine("Returning to menu...");
-
-            void DisplayQueue()
-            {
-                Console.WriteLine("Queue contains the following:");
-                foreach (var item in examinedQueue)
-                {
-                    Console.WriteLine($"{item}");
-                }
-
-                Console.WriteLine("");
-            }
             /*
              * Loop this method untill the user inputs something to exit to main menue.
              * Create a switch with cases to enqueue items or dequeue items
@@ -193,6 +182,17 @@ namespace SkalProj_Datastrukturer_Minne
              * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
+        }
+
+       static void DisplayValues<T>(IEnumerable<T> collection)
+        {
+            Console.WriteLine($"{collection.GetType()} contains the following:");
+            foreach (var item in collection)
+            {
+                Console.WriteLine($"{item}");
+            }
+
+            Console.WriteLine("");
         }
     }
 }
