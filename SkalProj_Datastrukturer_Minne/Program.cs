@@ -201,7 +201,6 @@ namespace SkalProj_Datastrukturer_Minne
                         }
 
                         break;
-              
                 }
             } while (input != "3");
             /*
@@ -213,6 +212,50 @@ namespace SkalProj_Datastrukturer_Minne
 
         static void CheckParanthesis()
         {
+            var parenthesisStack = new Stack<char>();
+            bool correctParanthesis = true; 
+            string input;
+            do
+            {
+                Console.WriteLine("Check if your input has the correct brackets");
+                Console.WriteLine("Example of correct: (()), {}, [({})]\n" +
+                                  "Example of incorrect: (()])," +
+                                  "\nEnter only x to return to the main menu");
+                input = Console.ReadLine()?.TrimEnd() ?? string.Empty;
+
+                foreach (var c in input)
+                {
+                    switch (c)
+                    {
+                        case '(':
+                        case '[':
+                        case '{':
+                            parenthesisStack.Push(c);
+                            break;
+
+                        case ')':
+                        case ']':
+                        case '}':
+                            
+                            if (parenthesisStack.Count == 0 || !MatchingBrackets(parenthesisStack.Pop(), c))
+                            {
+                                correctParanthesis = false;
+                            }
+                            else
+                            {
+                                correctParanthesis = true;
+                            }
+
+                            break;
+                        default:
+                            continue;
+                    }
+                }
+
+              
+                Console.WriteLine($"input is {(correctParanthesis)}");
+            } while (input != "x");
+
             /*
              * Use this method to check if the paranthesis in a string is Correct or incorrect.
              * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
@@ -220,7 +263,14 @@ namespace SkalProj_Datastrukturer_Minne
              */
         }
 
-       static void DisplayValues<T>(IEnumerable<T> collection)
+        static bool MatchingBrackets(char openingBracket, char closingBracket)
+        {
+            return openingBracket == '(' && closingBracket == ')' ||
+                   openingBracket == '[' && closingBracket == ']' ||
+                   openingBracket == '{' && closingBracket == '}';
+        }
+
+        static void DisplayValues<T>(IEnumerable<T> collection)
         {
             Console.WriteLine($"{collection.GetType()} contains the following:");
             foreach (var item in collection)
