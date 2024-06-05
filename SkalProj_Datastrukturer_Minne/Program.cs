@@ -215,7 +215,7 @@ namespace SkalProj_Datastrukturer_Minne
         {
             var parenthesisStack = new Stack<char>();
             bool correctParanthesis = true;
-            string input;
+            string input = "";
             do
             {
                 Console.WriteLine("Check if your input has the correct brackets");
@@ -233,35 +233,42 @@ namespace SkalProj_Datastrukturer_Minne
 
                 foreach (var c in input)
                 {
-                    switch (c)
+                    if (!Char.IsLetterOrDigit(c))
                     {
-                        case '(':
-                        case '[':
-                        case '{':
-                            parenthesisStack.Push(c);
-                            break;
+                        switch (c)
+                        {
+                            case '(':
+                            case '[':
+                            case '{':
+                                parenthesisStack.Push(c);
+                                break;
 
-                        case ')':
-                        case ']':
-                        case '}':
+                            case ')':
+                            case ']':
+                            case '}':
+                                if (parenthesisStack.Count == 0)
+                                {
+                                    correctParanthesis = false;
+                                }
+                                else if (!MatchingBrackets(parenthesisStack.Pop(), c))
+                                {
+                                    correctParanthesis = false;
+                                }
+                                else
+                                {
+                                    correctParanthesis = true;
+                                }
 
-                            if (parenthesisStack.Count == 0 || !MatchingBrackets(parenthesisStack.Pop(), c))
-                            {
-                                correctParanthesis = false;
-                            }
-                            else
-                            {
-                                correctParanthesis = true;
-                            }
-
-                            break;
-                        default:
-                            continue;
+                                break;
+                            default:
+                                continue;
+                        }
                     }
                 }
 
 
                 Console.WriteLine($"input is {(correctParanthesis)}");
+                parenthesisStack.Clear();
             } while (input != "x");
 
             /*
