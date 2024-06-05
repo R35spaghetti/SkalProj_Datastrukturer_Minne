@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace SkalProj_Datastrukturer_Minne
 {
@@ -221,7 +222,14 @@ namespace SkalProj_Datastrukturer_Minne
                 Console.WriteLine("Example of correct: (()), {}, [({})]\n" +
                                   "Example of incorrect: (()])," +
                                   "\nEnter only x to return to the main menu");
-                input = Console.ReadLine()?.TrimEnd() ?? string.Empty;
+                do
+                {
+                    input = Console.ReadLine()?.TrimEnd() ?? string.Empty;
+                    if (IsStringValid(input)) ;
+                    {
+                        Console.WriteLine("Incorrect input, try again.");
+                    }
+                } while (IsStringValid(input));
 
                 foreach (var c in input)
                 {
@@ -270,6 +278,17 @@ namespace SkalProj_Datastrukturer_Minne
                    openingBracket == '{' && closingBracket == '}';
         }
 
+        static bool IsStringValid(string input)
+        {
+            Match match = Regex.Match(input, @"^\s*(\)|\]|}|\s)");
+            if (match.Success)
+            {
+                return true;
+            }
+
+            return false;
+
+        }
         static void DisplayValues<T>(IEnumerable<T> collection)
         {
             Console.WriteLine($"{collection.GetType()} contains the following:");
