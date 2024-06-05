@@ -126,7 +126,7 @@ namespace SkalProj_Datastrukturer_Minne
                                   "\n 1. Add item to the queue" +
                                   "\n 2. Remove item from the queue" +
                                   "\n 3. Return to menu");
-                input = Console.ReadLine()?.TrimEnd() ?? string.Empty;
+                input = ReadUserLine();
                 string value;
                 switch (input)
                 {
@@ -178,7 +178,7 @@ namespace SkalProj_Datastrukturer_Minne
                                   "\n 1. Add item to the stack" +
                                   "\n 2. Remove item from the stack" +
                                   "\n 3. Return to menu");
-                input = Console.ReadLine()?.TrimEnd() ?? string.Empty;
+                input = ReadUserLine();
                 string value;
                 switch (input)
                 {
@@ -214,7 +214,7 @@ namespace SkalProj_Datastrukturer_Minne
         static void CheckParanthesis()
         {
             var parenthesisStack = new Stack<char>();
-            bool correctParanthesis = true; 
+            bool correctParanthesis = true;
             string input;
             do
             {
@@ -224,7 +224,7 @@ namespace SkalProj_Datastrukturer_Minne
                                   "\nEnter only x to return to the main menu");
                 do
                 {
-                    input = Console.ReadLine()?.TrimEnd() ?? string.Empty;
+                    input = ReadUserLine();
                     if (IsStringValid(input)) ;
                     {
                         Console.WriteLine("Incorrect input, try again.");
@@ -244,7 +244,7 @@ namespace SkalProj_Datastrukturer_Minne
                         case ')':
                         case ']':
                         case '}':
-                            
+
                             if (parenthesisStack.Count == 0 || !MatchingBrackets(parenthesisStack.Pop(), c))
                             {
                                 correctParanthesis = false;
@@ -260,7 +260,7 @@ namespace SkalProj_Datastrukturer_Minne
                     }
                 }
 
-              
+
                 Console.WriteLine($"input is {(correctParanthesis)}");
             } while (input != "x");
 
@@ -278,6 +278,12 @@ namespace SkalProj_Datastrukturer_Minne
                    openingBracket == '{' && closingBracket == '}';
         }
 
+        static string ReadUserLine(string prompt = "")
+        {
+            Console.Write(prompt ?? "Enter value: ");
+            return Console.ReadLine()?.TrimEnd() ?? string.Empty;
+        }
+
         static bool IsStringValid(string input)
         {
             Match match = Regex.Match(input, @"^\s*(\)|\]|}|\s)");
@@ -287,8 +293,8 @@ namespace SkalProj_Datastrukturer_Minne
             }
 
             return false;
-
         }
+
         static void DisplayValues<T>(IEnumerable<T> collection)
         {
             Console.WriteLine($"{collection.GetType()} contains the following:");
