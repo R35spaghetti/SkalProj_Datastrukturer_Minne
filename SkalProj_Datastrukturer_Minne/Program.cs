@@ -269,31 +269,36 @@ namespace SkalProj_Datastrukturer_Minne
 
         static T ReadUserLine<T>(bool trim = false)
         {
-            
-            
             var input = Console.ReadLine();
-            if (input!= null && trim)
+
+            if (!string.IsNullOrEmpty(input) && trim is true and true && input.Length != 0)
             {
                 input = input.TrimEnd();
-            }
-
-            if (typeof(T) == typeof(char))
-            {
-                if (input.Length > 0)
+                if (input.Length == 0)
                 {
-                    try
-                    {
-                        return (T)(object)input[0];
-                    }
-                    catch (IndexOutOfRangeException)
-                    {
-                        Console.Clear();
-                        Console.WriteLine("Please enter some input!");
-                    }
+                    input = " ";
                 }
             }
+            else
+            {
+                input = " ";
+            }
             
-            return (T)Convert.ChangeType(input, typeof(T)) ?? throw new InvalidOperationException();
+            if (typeof(T) == typeof(char))
+            {
+                try
+                {
+                    if (input != null) return (T)(object)input[0];
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Please enter some input!");
+                }
+      
+            }
+            
+            return (T)Convert.ChangeType(input, typeof(T));
         }
  
 
