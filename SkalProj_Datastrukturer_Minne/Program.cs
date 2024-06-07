@@ -271,7 +271,7 @@ namespace SkalProj_Datastrukturer_Minne
         {
             var input = Console.ReadLine();
 
-            if (!string.IsNullOrEmpty(input) && trim is true and true && input.Length != 0)
+            if (trim)
             {
                 input = input.TrimEnd();
                 if (input.Length == 0)
