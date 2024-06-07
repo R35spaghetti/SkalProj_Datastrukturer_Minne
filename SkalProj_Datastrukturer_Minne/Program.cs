@@ -109,7 +109,7 @@ namespace SkalProj_Datastrukturer_Minne
         static void ExamineQueue()
         {
             Queue<string> examinedQueue = new Queue<string>();
-            string input;
+            char input;
 
             do
             {
@@ -117,18 +117,18 @@ namespace SkalProj_Datastrukturer_Minne
                                   "\n 1. Add item to the queue" +
                                   "\n 2. Remove item from the queue" +
                                   "\n 3. Return to menu");
-                input = ReadUserLine<string>("", true);
+                input = ReadUserLine<char>("", true);
                 string value;
                 switch (input)
                 {
-                    case "1":
+                    case '1':
                         Console.Write("Enter something to add: ");
                         value = ReadUserLine<string>("", true);
                         examinedQueue.Enqueue(value);
                         Console.WriteLine($"Added {value}");
                         DisplayValues(examinedQueue);
                         break;
-                    case "2":
+                    case '2':
                         if (examinedQueue.Count > 0)
                         {
                             value = examinedQueue.Dequeue();
@@ -145,7 +145,7 @@ namespace SkalProj_Datastrukturer_Minne
                         Console.WriteLine("Invalid input, try again");
                         break;
                 }
-            } while (input != "3");
+            } while (input != '3');
 
             Console.WriteLine("Returning to menu...");
             /*
@@ -161,7 +161,7 @@ namespace SkalProj_Datastrukturer_Minne
         static void ExamineStack()
         {
             Stack<string> examinedStack = new Stack<string>();
-            string input;
+            char input;
 
             do
             {
@@ -169,18 +169,18 @@ namespace SkalProj_Datastrukturer_Minne
                                   "\n 1. Add item to the stack" +
                                   "\n 2. Remove item from the stack" +
                                   "\n 3. Return to menu");
-                input = ReadUserLine<string>("", true);
+                input = ReadUserLine<char>("", true);
                 string value;
                 switch (input)
                 {
-                    case "1":
+                    case '1':
                         Console.Write("Enter something to add: ");
                         value = ReadUserLine<string>("", true);
                         examinedStack.Push(value);
                         Console.WriteLine($"Added {value}");
                         DisplayValues(examinedStack);
                         break;
-                    case "2":
+                    case '2':
                         if (examinedStack.Count > 0)
                         {
                             value = examinedStack.Pop();
@@ -194,7 +194,7 @@ namespace SkalProj_Datastrukturer_Minne
 
                         break;
                 }
-            } while (input != "3");
+            } while (input != '3');
             /*
              * Loop this method until the user inputs something to exit to main menue.
              * Create a switch with cases to push or pop items
