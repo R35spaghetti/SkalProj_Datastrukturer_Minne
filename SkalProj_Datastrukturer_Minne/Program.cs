@@ -250,7 +250,18 @@ namespace SkalProj_Datastrukturer_Minne
                     }
                 }
 
-                Console.WriteLine($"input is {(correctParanthesis)}");
+                if (input.Length == 1 || correctParanthesis == false)
+                {
+                    Console.WriteLine("Parentheses are incorrect");
+                }
+                else if(correctParanthesis)
+                {
+                    Console.WriteLine("Parentheses are correct"); 
+                }
+                else
+                {
+                    Console.WriteLine("Parentheses are incorrect");
+                }
             } while (input != "x");
 
             /*
