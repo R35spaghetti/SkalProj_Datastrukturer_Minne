@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 
 namespace SkalProj_Datastrukturer_Minne
 {
@@ -70,7 +69,7 @@ namespace SkalProj_Datastrukturer_Minne
             {
                 Console.WriteLine("Enter +yourTerm to add a value to the list" +
                                   "enter -yourTerm to remove it, type x to exit.");
-                input = Console.ReadLine().TrimEnd();
+                input = ReadUserLine<string>("", true);
                 if (string.IsNullOrEmpty(input) || !char.TryParse(input[0].ToString(), out var operation)) continue;
                 string value = input[1..];
 
@@ -126,13 +125,13 @@ namespace SkalProj_Datastrukturer_Minne
                                   "\n 1. Add item to the queue" +
                                   "\n 2. Remove item from the queue" +
                                   "\n 3. Return to menu");
-                input = ReadUserLine();
+                input = ReadUserLine<string>("", true);
                 string value;
                 switch (input)
                 {
                     case "1":
                         Console.Write("Enter something to add: ");
-                        value = Console.ReadLine() ?? string.Empty;
+                        value = ReadUserLine<string>("", true);
                         examinedQueue.Enqueue(value);
                         Console.WriteLine($"Added {value}");
                         DisplayValues(examinedQueue);
@@ -178,13 +177,13 @@ namespace SkalProj_Datastrukturer_Minne
                                   "\n 1. Add item to the stack" +
                                   "\n 2. Remove item from the stack" +
                                   "\n 3. Return to menu");
-                input = ReadUserLine();
+                input = ReadUserLine<string>("", true);
                 string value;
                 switch (input)
                 {
                     case "1":
                         Console.Write("Enter something to add: ");
-                        value = Console.ReadLine() ?? string.Empty;
+                        value = ReadUserLine<string>("", true);
                         examinedStack.Push(value);
                         Console.WriteLine($"Added {value}");
                         DisplayValues(examinedStack);
@@ -215,7 +214,7 @@ namespace SkalProj_Datastrukturer_Minne
         {
             var parenthesisStack = new Stack<char>();
             bool correctParanthesis = true;
-            string input = "";
+            string input;
 
             do
             {
@@ -223,7 +222,7 @@ namespace SkalProj_Datastrukturer_Minne
                 Console.WriteLine("Example of correct: (()), {}, [({})]\n" +
                                   "Example of incorrect: (()])," +
                                   "\nEnter only x to return to the main menu");
-                input = ReadUserLine();
+                input = ReadUserLine<string>("", true);
                 parenthesisStack.Clear();
                 foreach (var c in input)
                 {
@@ -276,11 +275,34 @@ namespace SkalProj_Datastrukturer_Minne
                    openingBracket == '{' && closingBracket == '}';
         }
 
-        static string ReadUserLine(string prompt = "")
+        static T ReadUserLine<T>(string? prompt = "", bool trim = false)
         {
-            Console.Write(prompt ?? "Enter value: ");
-            return Console.ReadLine()?.TrimEnd() ?? string.Empty;
+            Console.Write(prompt?? "Enter value: "); 
+            var input = Console.ReadLine();
+            if (input!= null && trim)
+            {
+                input = input.TrimEnd();
+            }
+
+            if (typeof(T) == typeof(char))
+            {
+                if (input.Length > 0)
+                {
+                    try
+                    {
+                        return (T)(object)input[0];
+                    }
+                    catch (IndexOutOfRangeException)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Please enter some input!");
+                    }
+                }
+            }
+            
+            return (T)Convert.ChangeType(input, typeof(T)) ?? throw new InvalidOperationException();
         }
+ 
 
         static void DisplayValues<T>(IEnumerable<T> collection)
         {
