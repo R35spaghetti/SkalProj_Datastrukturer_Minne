@@ -62,7 +62,7 @@ namespace SkalProj_Datastrukturer_Minne
                 Console.WriteLine("Enter +yourTerm to add a value to the list" +
                                   "enter -yourTerm to remove it, type x to exit.");
                 input = ReadUserLine<string>(true);
-                if (string.IsNullOrEmpty(input) || !char.TryParse(input[0].ToString(), out var operation)) continue;
+                if (!char.TryParse(input[0].ToString(), out var operation)) continue;
                 string value = input[1..];
 
                 switch (operation)
