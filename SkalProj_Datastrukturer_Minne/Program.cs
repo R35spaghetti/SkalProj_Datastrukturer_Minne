@@ -205,7 +205,7 @@ namespace SkalProj_Datastrukturer_Minne
         static void CheckParanthesis()
         {
             var parenthesisStack = new Stack<char>();
-            bool correctParanthesis = true;
+            bool correctParanthesis = false;
             string input;
 
             do
@@ -249,14 +249,11 @@ namespace SkalProj_Datastrukturer_Minne
                         }
                     }
                 }
-
-                if (input.Length == 1 || correctParanthesis == false)
+                
+                if(correctParanthesis)
                 {
-                    Console.WriteLine("Parentheses are incorrect");
-                }
-                else if(correctParanthesis)
-                {
-                    Console.WriteLine("Parentheses are correct"); 
+                    Console.WriteLine("Parentheses are correct");
+                    correctParanthesis = false;
                 }
                 else
                 {
