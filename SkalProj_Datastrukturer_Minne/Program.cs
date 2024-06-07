@@ -19,7 +19,7 @@ namespace SkalProj_Datastrukturer_Minne
                     + "\n3. Examine a Stack"
                     + "\n4. CheckParenthesis"
                     + "\n0. Exit the application");
-                char input = ReadUserLine<char>("", true); //Creates the character input to be used with the switch-case below.
+                char input = ReadUserLine<char>(true); //Creates the character input to be used with the switch-case below.
              
 
                 switch (input)
@@ -61,7 +61,7 @@ namespace SkalProj_Datastrukturer_Minne
             {
                 Console.WriteLine("Enter +yourTerm to add a value to the list" +
                                   "enter -yourTerm to remove it, type x to exit.");
-                input = ReadUserLine<string>("", true);
+                input = ReadUserLine<string>(true);
                 if (string.IsNullOrEmpty(input) || !char.TryParse(input[0].ToString(), out var operation)) continue;
                 string value = input[1..];
 
@@ -117,13 +117,13 @@ namespace SkalProj_Datastrukturer_Minne
                                   "\n 1. Add item to the queue" +
                                   "\n 2. Remove item from the queue" +
                                   "\n 3. Return to menu");
-                input = ReadUserLine<char>("", true);
+                input = ReadUserLine<char>(true);
                 string value;
                 switch (input)
                 {
                     case '1':
                         Console.Write("Enter something to add: ");
-                        value = ReadUserLine<string>("", true);
+                        value = ReadUserLine<string>(true);
                         examinedQueue.Enqueue(value);
                         Console.WriteLine($"Added {value}");
                         DisplayValues(examinedQueue);
@@ -169,13 +169,13 @@ namespace SkalProj_Datastrukturer_Minne
                                   "\n 1. Add item to the stack" +
                                   "\n 2. Remove item from the stack" +
                                   "\n 3. Return to menu");
-                input = ReadUserLine<char>("", true);
+                input = ReadUserLine<char>(true);
                 string value;
                 switch (input)
                 {
                     case '1':
                         Console.Write("Enter something to add: ");
-                        value = ReadUserLine<string>("", true);
+                        value = ReadUserLine<string>(true);
                         examinedStack.Push(value);
                         Console.WriteLine($"Added {value}");
                         DisplayValues(examinedStack);
@@ -214,7 +214,7 @@ namespace SkalProj_Datastrukturer_Minne
                 Console.WriteLine("Example of correct: (()), {}, [({})]\n" +
                                   "Example of incorrect: (()])," +
                                   "\nEnter only x to return to the main menu");
-                input = ReadUserLine<string>("", true);
+                input = ReadUserLine<string>(true);
                 parenthesisStack.Clear();
                 foreach (var c in input)
                 {
@@ -267,9 +267,10 @@ namespace SkalProj_Datastrukturer_Minne
                    openingBracket == '{' && closingBracket == '}';
         }
 
-        static T ReadUserLine<T>(string? prompt = "", bool trim = false)
+        static T ReadUserLine<T>(bool trim = false)
         {
-            Console.Write(prompt?? "Enter value: "); 
+            
+            
             var input = Console.ReadLine();
             if (input!= null && trim)
             {
