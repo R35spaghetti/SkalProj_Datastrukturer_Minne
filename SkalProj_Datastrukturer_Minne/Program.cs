@@ -295,7 +295,7 @@ namespace SkalProj_Datastrukturer_Minne
             if (trim)
             {
                 input = input?.Trim();
-                if (input != null && input.Length == 0)
+                if (input is { Length: 0 })
                 {
                     input = " ";
                 }
