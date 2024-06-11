@@ -294,15 +294,11 @@ namespace SkalProj_Datastrukturer_Minne
 
             if (trim)
             {
-                input = input.Trim();
-                if (input.Length == 0)
+                input = input?.Trim();
+                if (input != null && input.Length == 0)
                 {
                     input = " ";
                 }
-            }
-            else
-            {
-                input = " ";
             }
 
             if (typeof(T) == typeof(char))
@@ -318,7 +314,7 @@ namespace SkalProj_Datastrukturer_Minne
                 }
             }
 
-            return (T)Convert.ChangeType(input, typeof(T));
+            return (T)Convert.ChangeType(input, typeof(T)) ?? throw new InvalidOperationException();
         }
 
 
