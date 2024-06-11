@@ -247,7 +247,7 @@ namespace SkalProj_Datastrukturer_Minne
                             {
                                 correctParanthesis = MatchingBrackets(parenthesisStack.Pop(), c);
                             }
-                            catch (Exception e)
+                            catch (Exception)
                             {
                                 correctParanthesis = false;
                             }
