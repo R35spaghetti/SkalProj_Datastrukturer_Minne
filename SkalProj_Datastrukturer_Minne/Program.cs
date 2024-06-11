@@ -20,7 +20,6 @@ namespace SkalProj_Datastrukturer_Minne
                     + "\n4. CheckParenthesis"
                     + "\n0. Exit the application");
                 char input = ReadUserLine<char>(true); //Creates the character input to be used with the switch-case below.
-             
 
                 switch (input)
                 {
@@ -218,41 +217,55 @@ namespace SkalProj_Datastrukturer_Minne
                 parenthesisStack.Clear();
                 foreach (var c in input)
                 {
-                    if (!Char.IsLetterOrDigit(c))
+                    char lastOne = input.Last();
+                    char firstOne = input.First();
+                    if (lastOne == '(' || lastOne == '[' || lastOne == '{')
                     {
-                        switch (c)
-                        {
-                            case '(':
-                            case '[':
-                            case '{':
-                                parenthesisStack.Push(c);
-                                break;
+                        correctParanthesis = false;
+                        continue;
+                    }
 
-                            case ')':
-                            case ']':
-                            case '}':
+                    if (firstOne == ')' || firstOne == ']' || firstOne == '}')
+                    {
+                        correctParanthesis = false;
+                        continue;
+                    }
 
-                                if (parenthesisStack.Count == 0 || !MatchingBrackets(parenthesisStack.Pop(), c) ||
-                                    parenthesisStack.Count > 0)
-                                {
-                                    correctParanthesis = false;
-                                }
+                    switch (c)
+                    {
+                        case '(':
+                        case '[':
+                        case '{':
+                            parenthesisStack.Push(c);
+                            break;
 
-                                else
-                                {
-                                    correctParanthesis = true;
-                                }
+                        case ')':
+                        case ']':
+                        case '}':
 
-                                break;
-                            default:
-                                continue;
-                        }
+                            try
+                            {
+                                correctParanthesis = MatchingBrackets(parenthesisStack.Pop(), c);
+                            }
+                            catch (Exception e)
+                            {
+                                correctParanthesis = false;
+                            }
+
+                            break;
+                        default:
+                            continue;
                     }
                 }
-                
-                if(correctParanthesis)
+
+                if (parenthesisStack.Count > 0)
+                {
+                    Console.WriteLine("Parentheses are incorrect");
+                } 
+                else if (correctParanthesis)
                 {
                     Console.WriteLine("Parentheses are correct");
+
                     correctParanthesis = false;
                 }
                 else
@@ -291,7 +304,7 @@ namespace SkalProj_Datastrukturer_Minne
             {
                 input = " ";
             }
-            
+
             if (typeof(T) == typeof(char))
             {
                 try
@@ -303,12 +316,11 @@ namespace SkalProj_Datastrukturer_Minne
                     Console.Clear();
                     Console.WriteLine("Please enter some input!");
                 }
-      
             }
-            
+
             return (T)Convert.ChangeType(input, typeof(T));
         }
- 
+
 
         static void DisplayValues<T>(IEnumerable<T> collection)
         {
